@@ -15,10 +15,8 @@ import os
 import warnings
 warnings.filterwarnings('ignore')
 
-def get_data(path):
-    
-    filename = path.split('\\')[-1].split('.')[0]
-    
+def get_data(path):    
+    filename = path.split('\\')[-1].split('.')[0]    
     data = pd.read_excel(path)
     print('数据正在提取中，请稍后')
 
@@ -29,9 +27,7 @@ def get_data(path):
     x = 0
     for row in range(3,len(data)):
         if data.loc[row,'周对比2'] == '周：':
-            x = row
-        
-        
+            x = row      
             block_y = min(row + 15,len(data))  #此处是防止循环超过df的长度，就会报错index range out of 
             for row_2 in range(row + 1,block_y):
                 y = 0
@@ -85,16 +81,11 @@ def get_data(path):
 
 
 print('请输入CPC中产品页面要提取的文件')
-file_path = input('excel文件:')
-#去除输入路径时带入的双引号
-if '"' in file_path:
-    file_path = file_path.replace('"','')
-
+file_path = input('excel文件:').replace('"','')
 
 f_path = os.path.dirname(file_path)
 os.chdir(f_path)
 
 get_data(file_path)
-
 print('数据提取成功，路径为:%s'%f_path)
 
